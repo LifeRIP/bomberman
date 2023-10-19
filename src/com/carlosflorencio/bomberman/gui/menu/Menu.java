@@ -6,8 +6,8 @@ import com.carlosflorencio.bomberman.gui.Frame;
 
 public class Menu extends JMenuBar {
 	
-	public Menu(Frame frame) {
-		add( new Game(frame) );
+	public Menu(Frame frame, com.carlosflorencio.bomberman.Game game) {
+		add( new Game(frame, game) );
 		add( new Options(frame) );
 		add( new Help(frame) );
 	}

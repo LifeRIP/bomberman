@@ -6,16 +6,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import com.carlosflorencio.bomberman.database.Database;
 import com.carlosflorencio.bomberman.entities.Entity;
 import com.carlosflorencio.bomberman.entities.Message;
 import com.carlosflorencio.bomberman.entities.bomb.Bomb;
 import com.carlosflorencio.bomberman.entities.bomb.Explosion;
 import com.carlosflorencio.bomberman.entities.mob.Mob;
 import com.carlosflorencio.bomberman.entities.mob.Player;
+import com.carlosflorencio.bomberman.entities.tile.destroyable.BrickTile;
 import com.carlosflorencio.bomberman.entities.tile.powerup.Powerup;
 import com.carlosflorencio.bomberman.exceptions.LoadLevelException;
 import com.carlosflorencio.bomberman.graphics.IRender;
 import com.carlosflorencio.bomberman.graphics.Screen;
+import com.carlosflorencio.bomberman.initial.InitialState;
 import com.carlosflorencio.bomberman.input.Keyboard;
 import com.carlosflorencio.bomberman.level.FileLevel;
 import com.carlosflorencio.bomberman.level.Level;
@@ -35,6 +40,10 @@ public class Board implements IRender {
 	
 	private int _screenToShow = -1; //1:endgame, 2:changelevel, 3:paused
 	
+	public String[][] _topScores;
+	private boolean _saveScore = false; // false:not shown, true:already shown
+	private String _name;
+	
 	private int _time = Game.TIME;
 	private int _points = Game.POINTS;
 	private int _lives = Game.LIVES;
@@ -43,8 +52,10 @@ public class Board implements IRender {
 		_game = game;
 		_input = input;
 		_screen = screen;
-		
-		changeLevel(1); //start in level 1
+
+		setName();
+		changeLevel(InitialState.LEVEL); //start in level of txt config
+		//changeLevel(1); //start in level 1
 	}
 	
 	/*
@@ -109,7 +120,11 @@ public class Board implements IRender {
 		_game.playerSpeed = 1.0;
 		_game.bombRadius = 1;
 		_game.bombRate = 1;
-		
+
+		setName();
+		_saveScore = false;
+		BrickTile.setWallpass(false);
+		Bomb.setBombpass(false);
 	}
 
 	public void restartLevel() {
@@ -170,6 +185,17 @@ public class Board implements IRender {
 		_screenToShow = 1;
 		_game.resetScreenDelay();
 		_game.pause();
+		if(!_saveScore) {
+            saveScore();
+			_saveScore = true;
+		}
+	}
+
+	public void topScoresInGame() {
+		_topScores = Database.consultTopScores();
+		_screenToShow = 4;
+		_game.resetScreenDelay();
+		_game.pause();
 	}
 	
 	public boolean detectNoEnemies() {
@@ -215,6 +241,9 @@ public class Board implements IRender {
 				break;
 			case 3:
 				_screen.drawPaused(g);
+				break;
+			case 4:
+				_screen.drawTopScores(g, _topScores);
 				break;
 		}
 	}
@@ -424,6 +453,16 @@ public class Board implements IRender {
 				_messages.remove(i);
 		}
 	}
+
+	protected void saveScore() { // remove 'Database.update()' if name isn't a PK
+		if((_name != null) && !(_name.isEmpty()) && (_name.length() <= 10)) {
+			Database.update(_name.toLowerCase(), _points);
+			Database.insert(_name.toLowerCase(), _points);
+		} else if ((_name != null) && !(_name.isEmpty()) && (_name.length() > 10)) {
+			Database.update(_name.substring(0, 10).toLowerCase(), _points);
+			Database.insert(_name.substring(0, 10).toLowerCase(), _points);
+		}
+	}
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -484,5 +523,8 @@ public class Board implements IRender {
 	public int getHeight() {
 		return _level.getHeight();
 	}
-	
+
+	public void setName() {
+		_name = JOptionPane.showInputDialog(null, "Name:", "Enter a Your Name (max. 10 characters)", 1);
+	}
 }

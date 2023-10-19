@@ -6,20 +6,21 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import com.carlosflorencio.bomberman.gui.CodeDialog;
 import com.carlosflorencio.bomberman.gui.Frame;
-import com.carlosflorencio.bomberman.gui.InfoDialog;
+//import com.carlosflorencio.bomberman.gui.InfoDialog;
 
 public class Game extends JMenu {
 
 	public Frame frame;
+	public com.carlosflorencio.bomberman.Game game;
 	
-	public Game(Frame frame) {
+	public Game(Frame frame, com.carlosflorencio.bomberman.Game game) {
 		super("Game");
 		this.frame = frame;
+		this.game = game;
 		
 		/*
 		 * New Game
@@ -52,22 +53,21 @@ public class Game extends JMenu {
 			_frame = frame;
 		}
 		
-		  @Override
+		@Override
 		public void actionPerformed(ActionEvent e) {
-			  
-			  if(e.getActionCommand().equals("New Game")) {
-				  _frame.newGame();
-			  }
-			  
-			  if(e.getActionCommand().equals("Top Scores")) {
-				  new InfoDialog(_frame, "Top Scores", "If i had more time..", JOptionPane.INFORMATION_MESSAGE);
-			  }
-			  
-			  if(e.getActionCommand().equals("Codes")) {
-				  new CodeDialog(_frame);
-			  }
-
-		  }
+			if(e.getActionCommand().equals("New Game")) {
+				_frame.newGame();
+			}
+			
+			if(e.getActionCommand().equals("Top Scores")) {
+				game.getBoard().topScoresInGame();
+				//Database.consult();
+				//new InfoDialog(_frame, "Top Scores", "If i had more time..", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+			if(e.getActionCommand().equals("Codes")) {
+				new CodeDialog(_frame);
+			}
 		}
-
+	}
 }

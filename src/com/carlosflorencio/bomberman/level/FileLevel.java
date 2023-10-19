@@ -21,9 +21,11 @@ import com.carlosflorencio.bomberman.entities.tile.GrassTile;
 import com.carlosflorencio.bomberman.entities.tile.PortalTile;
 import com.carlosflorencio.bomberman.entities.tile.WallTile;
 import com.carlosflorencio.bomberman.entities.tile.destroyable.BrickTile;
+import com.carlosflorencio.bomberman.entities.tile.powerup.PowerupBombpass;
 import com.carlosflorencio.bomberman.entities.tile.powerup.PowerupBombs;
 import com.carlosflorencio.bomberman.entities.tile.powerup.PowerupFlames;
 import com.carlosflorencio.bomberman.entities.tile.powerup.PowerupSpeed;
+import com.carlosflorencio.bomberman.entities.tile.powerup.PowerupWallpass;
 import com.carlosflorencio.bomberman.exceptions.LoadLevelException;
 import com.carlosflorencio.bomberman.graphics.Screen;
 import com.carlosflorencio.bomberman.graphics.Sprite;
@@ -106,6 +108,28 @@ public class FileLevel extends Level {
 				
 				if(_board.isPowerupUsed(x, y, _level) == false) {
 					layer.addBeforeTop(new PowerupFlames(x, y, _level, Sprite.powerup_flames));
+				}
+				
+				_board.addEntitie(pos, layer);
+				break;
+			case 'w': 
+				layer = new LayeredEntity(x, y, 
+						new GrassTile(x ,y, Sprite.grass), 
+						new BrickTile(x ,y, Sprite.brick));
+				
+				if(_board.isPowerupUsed(x, y, _level) == false) {
+					layer.addBeforeTop(new PowerupWallpass(x, y, _level, Sprite.powerup_wallpass));
+				}
+				
+				_board.addEntitie(pos, layer);
+				break;
+			case 'v': 
+				layer = new LayeredEntity(x, y, 
+						new GrassTile(x ,y, Sprite.grass), 
+						new BrickTile(x ,y, Sprite.brick));
+				
+				if(_board.isPowerupUsed(x, y, _level) == false) {
+					layer.addBeforeTop(new PowerupBombpass(x, y, _level, Sprite.powerup_bombpass));
 				}
 				
 				_board.addEntitie(pos, layer);

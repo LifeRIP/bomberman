@@ -3,12 +3,15 @@ package com.carlosflorencio.bomberman.entities.tile.destroyable;
 
 import com.carlosflorencio.bomberman.entities.Entity;
 import com.carlosflorencio.bomberman.entities.bomb.DirectionalExplosion;
+import com.carlosflorencio.bomberman.entities.mob.Player;
 import com.carlosflorencio.bomberman.entities.mob.enemy.Kondoria;
 import com.carlosflorencio.bomberman.graphics.Screen;
 import com.carlosflorencio.bomberman.graphics.Sprite;
 import com.carlosflorencio.bomberman.level.Coordinates;
 
 public class BrickTile extends DestroyableTile {
+
+	protected static boolean _wallpass = false;
 	
 	public BrickTile(int x, int y, Sprite sprite) {
 		super(x, y, sprite);
@@ -38,12 +41,18 @@ public class BrickTile extends DestroyableTile {
 		
 		if(e instanceof DirectionalExplosion)
 			destroy();
-		
+			
 		if(e instanceof Kondoria)
 			return true;
-			
+
+		if(e instanceof Player && _wallpass) //TODO: fix bug, enemies pass through walls too...
+			return true;
+
 		return false;
 	}
-	
+
+	public static void setWallpass(boolean wallpass) {
+		_wallpass = wallpass;
+	}
 	
 }

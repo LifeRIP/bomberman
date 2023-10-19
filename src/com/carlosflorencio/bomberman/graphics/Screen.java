@@ -84,7 +84,7 @@ public class Screen {
 		
 		return temp;
 	}
-	
+
 	/*
 	|--------------------------------------------------------------------------
 	| Game Screens
@@ -130,14 +130,118 @@ public class Screen {
 		
 	}
 	
-	
-	
 	public void drawCenteredString(String s, int w, int h, Graphics g) {
 	    FontMetrics fm = g.getFontMetrics();
 	    int x = (w - fm.stringWidth(s)) / 2;
 	    int y = (fm.getAscent() + (h - (fm.getAscent() + fm.getDescent())) / 2);
 	    g.drawString(s, x, y);
-	 }
+	}
+
+    public void drawTopScores(Graphics g, String[][] _topScores) {
+		String[][] topScores = _topScores;
+		g.setColor(Color.black);
+		g.fillRect(0, 0, getRealWidth(), getRealHeight());
+		
+		Font font = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString("TOP SCORES", getRealWidth(), getRealHeight()/2 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+		
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString("RANK", getRealWidth()/2 - (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() * 6/8 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString("NAME", getRealWidth(), getRealHeight() * 6/8 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString("POINTS", getRealWidth() * 3/2 + (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() * 6/8 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+		
+        // 1.
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString("1.", getRealWidth()/2 - (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString(topScores[0][0].toUpperCase(), getRealWidth(), getRealHeight() - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString(topScores[0][1], getRealWidth() * 3/2 + (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g); 
+        
+        // 2.
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString("2.", getRealWidth()/2 - (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() * 5/4 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString(topScores[1][0].toUpperCase(), getRealWidth(), getRealHeight() * 5/4 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString(topScores[1][1], getRealWidth() * 3/2 + (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() * 5/4 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g); 
+        
+        // 3.
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString("3.", getRealWidth()/2 - (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() * 3/2 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString(topScores[2][0].toUpperCase(), getRealWidth(), getRealHeight() * 3/2 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString(topScores[2][1], getRealWidth() * 3/2 + (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() * 3/2 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g); 
+        
+        // 4.
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString("4.", getRealWidth()/2 - (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() * 7/4 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString(topScores[3][0].toUpperCase(), getRealWidth(), getRealHeight() * 7/4 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString(topScores[3][1], getRealWidth() * 3/2 + (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() * 7/4 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g); 
+        
+        // 5.
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString("5.", getRealWidth()/2 - (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() * 2 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString(topScores[4][0].toUpperCase(), getRealWidth(), getRealHeight() * 2 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString(topScores[4][1], getRealWidth() * 3/2 + (Game.TILES_SIZE * 2) * Game.SCALE, getRealHeight() * 2 - (Game.TILES_SIZE * 2) * Game.SCALE - 50, g);
+	}
 	
 	public int getWidth() {
 		return _width;

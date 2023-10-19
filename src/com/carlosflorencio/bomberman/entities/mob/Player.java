@@ -136,9 +136,9 @@ public class Player extends Mob {
 		else {
 			if(_bombs.size() == 0) {
 				
-				if(_board.getLives() == 0)
+				if(_board.getLives() == 0) {
 					_board.endGame();
-				else
+				} else
 					_board.restartLevel();
 			}
 		}

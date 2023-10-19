@@ -17,11 +17,12 @@ public class Frame extends JFrame {
 	private Game _game;
 
 	public Frame() {
-		setJMenuBar(new Menu(this));
 		
 		_containerpane = new JPanel(new BorderLayout());
 		_gamepane = new GamePanel(this);
 		_infopanel = new InfoPanel(_gamepane.getGame());
+		
+		setJMenuBar(new Menu(this, _gamepane.getGame()));
 		
 		_containerpane.add(_infopanel, BorderLayout.PAGE_START);
 		_containerpane.add(_gamepane, BorderLayout.PAGE_END);

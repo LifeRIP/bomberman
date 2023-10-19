@@ -20,6 +20,7 @@ public class Bomb extends AnimatedEntitiy {
 	protected boolean _allowedToPassThru = true;
 	protected DirectionalExplosion[] _explosions = null;
 	protected boolean _exploded = false;
+	protected static boolean _bombpass = false;
 	
 	public Bomb(int x, int y,Board board) {
 		_x = x;
@@ -114,6 +115,9 @@ public class Bomb extends AnimatedEntitiy {
 	public boolean collide(Entity e) {
 		
 		if(e instanceof Player) {
+
+			if(_bombpass) return true;
+
 			double diffX = e.getX() - Coordinates.tileToPixel(getX());
 			double diffY = e.getY() - Coordinates.tileToPixel(getY());
 			
@@ -131,4 +135,9 @@ public class Bomb extends AnimatedEntitiy {
 		
 		return false;
 	}
+
+	public static void setBombpass(boolean bombpass) {
+		_bombpass = bombpass;
+	}
+	
 }

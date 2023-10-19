@@ -6,10 +6,10 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-
 import com.carlosflorencio.bomberman.exceptions.BombermanException;
 import com.carlosflorencio.bomberman.graphics.Screen;
 import com.carlosflorencio.bomberman.gui.Frame;
+import com.carlosflorencio.bomberman.initial.InitialState;
 import com.carlosflorencio.bomberman.input.Keyboard;
 
 public class Game extends Canvas {
@@ -34,9 +34,11 @@ public class Game extends Canvas {
 	private static final int BOMBRADIUS = 1;
 	private static final double PLAYERSPEED = 1.0;
 	
-	public static final int TIME = 200;
+	public static final int TIME = InitialState.TIME;
+	//public static final int TIME = 200;
 	public static final int POINTS = 0;
-	public static final int LIVES = 3;
+	public static final int LIVES = InitialState.LIVES;
+	//public static final int LIVES = 3;
 	
 	protected static int SCREENDELAY = 3;
 	
@@ -108,6 +110,7 @@ public class Game extends Canvas {
 		screen.clear();
 		
 		Graphics g = bs.getDrawGraphics();
+		
 		
 		_board.drawScreen(g);
 
@@ -208,6 +211,10 @@ public class Game extends Canvas {
 	
 	public void resetScreenDelay() {
 		_screenDelay = SCREENDELAY;
+	}
+	
+	public Game getGame() {
+		return this;
 	}
 
 	public Keyboard getInput() {

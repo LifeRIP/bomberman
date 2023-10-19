@@ -55,4 +55,7 @@ public abstract class Mob extends AnimatedEntitiy {
 		return (_y* Game.SCALE) - (_sprite.SIZE / 2 * Game.SCALE);
 	}
 	
+	public Board getBoard() {
+		return _board;
+	}
 }

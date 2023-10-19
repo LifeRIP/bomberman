@@ -38,7 +38,6 @@ public class DestroyableTile extends Tile {
 	
 	@Override
 	public boolean collide(Entity e) {
-		
 		if(e instanceof DirectionalExplosion)
 			destroy();
 			
@@ -62,5 +61,4 @@ public class DestroyableTile extends Tile {
 			
 		return x2;
 	}
-	
 }
